@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 DEFAULT_USERNAME = ""
 
 
@@ -10,12 +11,20 @@ def add_password():
     username = username_entry.get()
     password = password_entry.get()
 
-    with open("data.txt", mode="a") as file:
-        file.write(f"{website} | {username} | {password}\n")
+    confirmed = messagebox.askokcancel(
+        title="Confirm Credentials",
+        message=f"Are you sure you want to save?\n\n"
+                f"Website: {website}\n"
+                f"Username: {username}\n"
+                f"Password: {password}"
+    )
+    if confirmed:
+        with open("data.txt", mode="a") as file:
+            file.write(f"{website} | {username} | {password}\n")
 
-    website_entry.delete(0, END)
-    password_entry.delete(0, END)
-    website_entry.focus()
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
+        website_entry.focus()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
