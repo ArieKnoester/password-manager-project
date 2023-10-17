@@ -14,7 +14,7 @@ symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 def generate_password():
 
     # initialize the field.
-    password_entry.delete(0,END)
+    password_entry.delete(0, END)
 
     num_letters = random.randint(8, 10)
     num_symbols = random.randint(2, 4)
@@ -25,10 +25,7 @@ def generate_password():
     password_list += [random.choice(symbols) for _ in range(num_symbols)]
     random.shuffle(password_list)
 
-    password_string = ""
-    for char in password_list:
-        password_string += char
-
+    password_string = "".join(password_list)
     password_entry.insert(0, password_string)
 
 
