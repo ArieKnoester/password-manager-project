@@ -8,8 +8,11 @@ added by the user are stored in a local text file. Retrieval of
 credentials is not supported. Users must search the text file
 to find the credentials they are looking for.
 
-A default Username/Email can be added by assigning it to the 
+- A default Username/Email can be added by assigning it to the 
 constant, DEFAULT_USERNAME.
+- Clicking the 'Generate Password' button will also add the
+password to your clipboard via the Pyperclip module 
+(https://pypi.org/project/pyperclip/)
 
 
 ### Disclaimer
