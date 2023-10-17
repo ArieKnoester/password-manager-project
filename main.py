@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import pyperclip
+
 DEFAULT_USERNAME = ""
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -12,7 +14,6 @@ symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
 
 def generate_password():
-
     # initialize the field.
     password_entry.delete(0, END)
 
@@ -27,6 +28,7 @@ def generate_password():
 
     password_string = "".join(password_list)
     password_entry.insert(0, password_string)
+    pyperclip.copy(password_string)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
