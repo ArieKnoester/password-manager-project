@@ -3,6 +3,7 @@ from tkinter import messagebox
 import random
 import pyperclip
 import character_lists
+DEFAULT_USERNAME = ""  # Set your default username here.
 
 
 class App(tk.Tk):
@@ -29,7 +30,7 @@ class App(tk.Tk):
         self.website_entry.grid(row=1, column=1, padx=(5, 0), pady=5, columnspan=2, sticky="EW")
         self.website_entry.focus()
         self.username_entry = tk.Entry()
-        # self.username_entry.insert(tk.INSERT, DEFAULT_USERNAME)
+        self.username_entry.insert(tk.INSERT, DEFAULT_USERNAME)
         self.username_entry.grid(row=2, column=1, padx=(5, 0), pady=5, columnspan=2, sticky="EW")
         self.password_entry = tk.Entry(width=31)
         self.password_entry.grid(row=3, column=1, padx=(5, 0), pady=5, sticky="W")
