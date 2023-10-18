@@ -1,15 +1,16 @@
 # password-manager-project
 
-WIP.
+This is a work in progress, but is functional as described below.
 
-A password management application created as part of a Python
+### Description
+A basic password management application created as part of a Python
 course. The image, logo.png, was provided by the course. Credentials
 added by the user are stored in a local text file. Retrieval of 
 credentials is not supported. Users must search the text file
 to find the credentials they are looking for.
 
 - A default Username/Email can be added by assigning it to the 
-constant, DEFAULT_USERNAME.
+constant, DEFAULT_USERNAME, in app.py.
 - Clicking the 'Generate Password' button will also add the
 password to your clipboard via the Pyperclip module 
 (https://pypi.org/project/pyperclip/)
