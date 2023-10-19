@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 import random
+import json
 import pyperclip
 import character_lists
+
 DEFAULT_USERNAME = ""  # Set your default username here.
 
 
@@ -59,7 +61,7 @@ class App(tk.Tk):
         pyperclip.copy(password_string)
 
     def add_password(self):
-        website = self.website_entry.get()
+        website = self.website_entry.get().lower()
         username = self.username_entry.get()
         password = self.password_entry.get()
 
@@ -69,17 +71,26 @@ class App(tk.Tk):
                 message="Please fill in all fields."
             )
         else:
-            confirmed = messagebox.askokcancel(
-                title="Confirm Credentials",
-                message=f"Are you sure you want to save?\n\n"
-                        f"Website: {website}\n"
-                        f"Username: {username}\n"
-                        f"Password: {password}"
-            )
-            if confirmed:
-                with open("data.txt", mode="a") as file:
-                    file.write(f"{website} | {username} | {password}\n")
+            new_data = {
+                website:
+                    {
+                        "username": username,
+                        "password": password
+                    }
+            }
+            try:
+                file = open("data.json", mode="r")
+            except FileNotFoundError:
+                with open("data.json", mode="w") as file:
+                    json.dump(new_data, file, indent=4, sort_keys=True)
+            else:
+                file_data = json.load(file)
+                file_data.update(new_data)
+                file.close()
 
-                self.website_entry.delete(0, tk.END)
-                self.password_entry.delete(0, tk.END)
-                self.website_entry.focus()
+                with open("data.json", mode="w") as file:
+                    json.dump(file_data, file, indent=4, sort_keys=True)
+
+            self.website_entry.delete(0, tk.END)
+            self.password_entry.delete(0, tk.END)
+            self.website_entry.focus()
