@@ -38,7 +38,7 @@ class App(tk.Tk):
         self.password_entry.grid(row=3, column=1, padx=(5, 0), pady=5, sticky="W")
 
         # Buttons
-        self.search_button = tk.Button(text="Search", width=15)
+        self.search_button = tk.Button(text="Search", width=15, command=self.find_password)
         self.search_button.grid(row=1, column=2)
         self.generate_button = tk.Button(text="Generate Password", width=15, command=self.generate_password)
         self.generate_button.grid(row=3, column=2, sticky="EW")
@@ -84,15 +84,49 @@ class App(tk.Tk):
                 file = open("data.json", mode="r")
             except FileNotFoundError:
                 with open("data.json", mode="w") as file:
-                    json.dump(new_data, file, indent=4, sort_keys=True)
+                    json.dump(new_data, file, indent=4)
             else:
                 file_data = json.load(file)
                 file_data.update(new_data)
                 file.close()
 
                 with open("data.json", mode="w") as file:
-                    json.dump(file_data, file, indent=4, sort_keys=True)
+                    json.dump(file_data, file, indent=4)
 
             self.website_entry.delete(0, tk.END)
             self.password_entry.delete(0, tk.END)
             self.website_entry.focus()
+
+    def find_password(self):
+        website = self.website_entry.get().lower()
+        try:
+            file = open("data.json", mode="r")
+        except FileNotFoundError:
+            messagebox.showerror(
+                title="Error",
+                message="Data file not found or has not been created.\n\n"
+                        "You're likely receiving this error if you have not saved"
+                        " any credentials yet."
+            )
+        else:
+            file_data = json.load(file)
+            file.close()
+            credentials = file_data.get(website)
+            if not credentials:
+                messagebox.showinfo(
+                    title="Not found.",
+                    message=f"No credentials for '{website}' was found.\n\n"
+                            "You may not have saved credentials for this website"
+                            " or have misspelled it."
+                )
+            else:
+                website = website.title()
+                username = credentials["username"]
+                password = credentials["password"]
+                pyperclip.copy(password)
+                messagebox.showinfo(
+                    title=website,
+                    message=f"Your password has been copied to your clipboard.\n\n"
+                            f"Username: {username}\n"
+                            f"Password: {password}"
+                )
