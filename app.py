@@ -28,8 +28,8 @@ class App(tk.Tk):
         self.password_label.grid(row=3, column=0, pady=5)
 
         # Entries
-        self.website_entry = tk.Entry()
-        self.website_entry.grid(row=1, column=1, padx=(5, 0), pady=5, columnspan=2, sticky="EW")
+        self.website_entry = tk.Entry(width=31)
+        self.website_entry.grid(row=1, column=1, padx=(5, 0), pady=5, sticky="W")
         self.website_entry.focus()
         self.username_entry = tk.Entry()
         self.username_entry.insert(tk.INSERT, DEFAULT_USERNAME)
@@ -38,7 +38,9 @@ class App(tk.Tk):
         self.password_entry.grid(row=3, column=1, padx=(5, 0), pady=5, sticky="W")
 
         # Buttons
-        self.generate_button = tk.Button(text="Generate Password", command=self.generate_password)
+        self.search_button = tk.Button(text="Search", width=15)
+        self.search_button.grid(row=1, column=2)
+        self.generate_button = tk.Button(text="Generate Password", width=15, command=self.generate_password)
         self.generate_button.grid(row=3, column=2, sticky="EW")
         self.add_button = tk.Button(text="Add", command=self.add_password)
         self.add_button.grid(row=4, column=1, padx=(5, 0), pady=(5, 0), columnspan=2, sticky="EW")
